@@ -11,6 +11,7 @@ AS
 	ON BC.BranchID = LB.BranchID
 	WHERE B.Title = @BookTitle
 	AND LB.BranchName = @Branch
+GO
 
 CREATE PROC GetBookCopies @BookTitle varchar(50) = 'The Lost Tribe'
 AS
@@ -24,6 +25,7 @@ AS
 	INNER JOIN LIBRARY_INFO.Library_Branch AS LB
 	ON BC.BranchID = LB.BranchID
 	WHERE B.Title = @BookTitle
+GO
 
 
 
@@ -36,7 +38,7 @@ LEFT OUTER JOIN LIBRARY_AND_BOOK.Book_Loans AS BL
 ON BR.CardNo = BL.CardNo
 WHERE BL.BookID IS NULL
 
-CREATE PROCEDURE GetBookByBranchAndDueDate @Branch varchar(50) = 'Sharpstown',@Due varchar(25) = '2016-12-17'
+CREATE PROCEDURE GetBookByBranchAndDueDate @Branch varchar(50) = 'Sharpstown',@Due date = '2016-12-17'
 AS
 	SELECT
 	B.Title
@@ -52,6 +54,7 @@ AS
 	ON BL.CardNo = BR.CardNo
 	WHERE LB.BranchName = @Branch
 	AND BL.DueDate = @Due
+GO
 
 
 SELECT 
@@ -61,6 +64,8 @@ FROM LIBRARY_INFO.Library_Branch AS LB
 INNER JOIN LIBRARY_AND_BOOK.Book_Loans AS BL
 ON LB.BranchID = BL.BranchID
 GROUP BY LB.BranchName
+
+
 
 CREATE PROCEDURE GetBorrowerWithMoreThanXBooks @Num_Borrowed int = 5
 AS
@@ -73,6 +78,7 @@ AS
 	ON BR.CardNo = BL.CardNo
 	GROUP BY BR.Name,BR.[Address]
 	HAVING COUNT(*) > @Num_Borrowed
+GO
 
 
 CREATE PROCEDURE GetBookByAuthorAndBranch @Author varchar(50) = 'Stephen King',@Branch varchar(50) = 'Central'
@@ -89,3 +95,4 @@ AS
 	ON BC.BranchID = LB.BranchID
 	WHERE BA.AuthorName = @Author
 	AND LB.BranchName = @Branch
+GO

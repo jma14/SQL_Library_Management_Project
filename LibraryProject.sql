@@ -148,8 +148,8 @@ CREATE TABLE LIBRARY_AND_BOOK.Book_Loans
 ,BookID int NOT NULL
 ,BranchID int NOT NULL
 ,CardNo varchar(25) NOT NULL
-,DateOut varchar(15)
-,DueDate varchar(15))
+,DateOut date
+,DueDate date)
 
 INSERT INTO LIBRARY_AND_BOOK.Book_Loans
 	VALUES (1,20,1,'111-111-111-111','2016-12-10','2016-12-15')
